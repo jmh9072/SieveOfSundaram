@@ -1,13 +1,15 @@
 // ConsoleApplication1.cpp : Defines the entry point for the console application.
 // TODO: Run a bunch of times and average runtimes
 
-#include "stdafx.h"
 #include "stdio.h"
 #include "math.h"
 #include "string.h"
 #include <iostream>
 
+#include <cuda.h>
+#include <cuda_runtime.h>
 
+using namespace std;
 /// This function performs a serial Sieve of Eratosthenes to find all prime number
 void eratosthenesSieve(int bound, bool * primeArray)
 {
@@ -121,7 +123,7 @@ int main(int argc, char* argv[])
 	const dim3 b_blockSize(32, 32, 1);
 	const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
 	
-	while (True)
+	while (1)
 	{
 		cout << "Which algorithm would you like to run?" << endl;
 		cout << "0. Sieve of Eratosthenes (serial)" << endl;
@@ -136,7 +138,7 @@ int main(int argc, char* argv[])
 		
 		//Process exit
 		if (choice == 7)
-			return 0
+			return 0;
 		
 		if (choice < 0 || choice > 4)
 			continue;
