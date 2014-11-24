@@ -8,6 +8,7 @@
 
 #include <cuda.h>
 #include <cuda_runtime.h>
+#include <cuda_runtime_api.h>
 
 using namespace std;
 /// This function performs a serial Sieve of Eratosthenes to find all prime number
@@ -148,21 +149,24 @@ int main(int argc, char* argv[])
 
 		checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound + 1)));
 		checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
-		checkCudaErrors(cudaMemSet(findArray, 0, sizeof(bool) * (bound + 1)));
-		checkCudaErrors(cudaMemSet(primeArray, 1, sizeof(bool) * (bound + 1)));
+		checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
+		checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 		
 		switch (choice)
 		{
 			case 0:
-			bool * eratosArray = new bool[bound + 1];
-			eratosthenesSieve(bound, eratosArray);
-			break;
-			
+			{
+				bool * eratosArray = new bool[bound + 1];
+				eratosthenesSieve(bound, eratosArray);
+				break;
+			}
+						
 			case 1:
-			bool * sundArray = new bool[bound + 1];
-			sundaramSieve(bound, sundArray);
-			break;
-			
+			{
+				bool * sundArray = new bool[bound + 1];
+				sundaramSieve(bound, sundArray);
+				break;
+			}
 			case 2:
 			//not yet implemented
 			break;
@@ -200,7 +204,7 @@ int main(int argc, char* argv[])
 			break;
 		}
 		bool *validatePrimeArray = new bool[bound + 1];
-		cudaCheckErrors(cudaMemCpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemCpyDeviceToHost));
+		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
 		validatePrimes(bound, );
 		
