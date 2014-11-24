@@ -9,8 +9,11 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
+#include "utils.h"
 
 using namespace std;
+
+
 /// This function performs a serial Sieve of Eratosthenes to find all prime number
 void eratosthenesSieve(int bound, bool * primeArray)
 {
@@ -171,7 +174,7 @@ int main(int argc, char* argv[])
 			//not yet implemented
 			break;
 			
-			case 3:
+			/*case 3:
 
 			sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
 			cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
@@ -199,14 +202,14 @@ int main(int argc, char* argv[])
 			sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
 			cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
 			break;
-			
+			*/
 			default:
 			break;
 		}
 		bool *validatePrimeArray = new bool[bound + 1];
 		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
-		validatePrimes(bound, );
+		//validatePrimes(bound, );
 		
 		checkCudaErrors(cudaFree(findArray));
 		checkCudaErrors(cudaFree(primeArray));
