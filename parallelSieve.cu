@@ -171,3 +171,91 @@ void eratosPerElement(int bound, bool * primeArray)
 		primeArray[k] = true; 
 	}
 }
+
+
+///this parallel function should be launched in the following manner
+///for( int i = 2; i < (bound / 2); i++)
+///{
+///		if(!primeArray[i])
+///		{
+///			eratosParallelMult<<<(bound /2)/1024, 1024>>>(i, bound, primeArray); //or some other way to calculate size dynamically
+///		}
+///}
+void eratosParallelMult(int i, int bound, bool * primeArray)
+{
+	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
+	
+	int bin = i * idx; 
+	
+	if(bin > bound)
+	{
+		return;
+	}
+	
+	primeArray[bin] = true; 
+}
+
+///this should work because we dont care about collisions and all eratos does is find multiples, this will do some redundant calculationg but hopefully so fast it doesnt matter
+void eratosPerElement2D(int bound, bool * primeArray)
+{
+	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
+	if(idx < 2)
+	{
+		return; 
+	}
+	int idy = blockDim.y * blockIdx.y + threadIdx.y; 
+	if(idy < 2)
+	{
+		return; 
+	}
+	int bin = idx * idy; 
+	if(bin > bound)
+	{
+		return; 
+	}
+	primeArray[bin] = true; 
+}
+
+
+///this parallel function should be launched in the following manner
+///for( int i = 2; i < (bound / 2); i++)
+///{
+///		if(!primeArray[i])
+///		{
+///			eratosParallelMult<<<(bound /2)/1024, 1024>>>(i, bound, primeArray); //or some other way to calculate size dynamically
+///		}
+///}
+void eratosParallelMult(int i, int bound, bool * primeArray)
+{
+	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
+	
+	int bin = i * idx; 
+	
+	if(bin > bound)
+	{
+		return;
+	}
+	
+	primeArray[bin] = true; 
+}
+
+///this should work because we dont care about collisions and all eratos does is find multiples, this will do some redundant calculationg but hopefully so fast it doesnt matter
+void eratosPerElement2D(int bound, bool * primeArray)
+{
+	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
+	if(idx < 2)
+	{
+		return; 
+	}
+	int idy = blockDim.y * blockIdx.y + threadIdx.y; 
+	if(idy < 2)
+	{
+		return; 
+	}
+	int bin = idx * idy; 
+	if(bin > bound)
+	{
+		return; 
+	}
+	primeArray[bin] = true; 
+}
