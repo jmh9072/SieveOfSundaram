@@ -3,6 +3,11 @@
 #include "sieve.cpp"
 #include "parallelSieve.cu"
 
+#include "utils.h"
+#include <cuda.h>
+#include <cuda_runtime.h>
+#include <cuda_runtime_api.h>
+
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -65,30 +70,30 @@ int main(int argc, char* argv[])
 			
 			case 3:
 				sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 			break;
 			
 			case 4:
 				sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 			break;
 			
 			case 5:
 				sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 			break;
 			
 			case 6:
 				sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSyncronize(); checkCudaErrors(cudaGetLastError());
+				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 			break;
 			
 			default:
