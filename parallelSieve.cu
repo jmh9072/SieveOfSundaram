@@ -87,6 +87,7 @@ void sundPartTwoPerElementOneD(int bound, bool * findArray, bool * primeArray)
 	}
 }
 
+__global__
 void sundPartTwoPerElementTwoD(int bound, bool * findArray, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
@@ -144,6 +145,7 @@ void eratosPerElement(int bound, bool * primeArray)
 ///			eratosParallelMult<<<(bound /2)/1024, 1024>>>(i, bound, primeArray); //or some other way to calculate size dynamically
 ///		}
 ///}
+__global__
 void eratosParallelMult(int i, int bound, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
@@ -158,6 +160,7 @@ void eratosParallelMult(int i, int bound, bool * primeArray)
 	primeArray[bin] = true; 
 }
 ///this should work because we dont care about collisions and all eratos does is find multiples, this will do some redundant calculationg but hopefully so fast it doesnt matter
+__global__
 void eratosPerElement2D(int bound, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
