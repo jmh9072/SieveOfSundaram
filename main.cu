@@ -8,6 +8,8 @@
 #include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
 
+#include <time.h>
+
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -20,6 +22,9 @@ int main(int argc, char* argv[])
 	const dim3 a_gridSize(bound / 1024, 1, 1);
 	const dim3 b_blockSize(32, 32, 1);
 	const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
+	
+	clock_t t;
+	float total_time;
 	
 	while (1)
 	{
@@ -53,53 +58,82 @@ int main(int argc, char* argv[])
 		{
 			case 0:
 			{
-				bool * eratosArray = new bool[bound + 1];
-				eratosthenesSieve(bound, eratosArray);
-				break;
+				t = clock()
+				for (int i = 0; i < 10000; i++)
+				{
+					bool * eratosArray = new bool[bound + 1];
+					eratosthenesSieve(bound, eratosArray);
+					break;
+				}
 			}
 						
 			case 1:
 			{
-				bool * sundArray = new bool[bound + 1];
-				sundaramSieve(bound, sundArray);
-				break;
+				t = clock()
+				for (int i = 0; i < 10000; i++)
+				{
+					bool * sundArray = new bool[bound + 1];
+					sundaramSieve(bound, sundArray);
+					break;
+				}
 			}
 			case 2:
 				//not yet implemented
 			break;
 			
 			case 3:
-				sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-				sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				t = clock()
+				for (int i = 0; i < 10000; i++)
+				{
+					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				}
 			break;
 			
 			case 4:
-				sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-				sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				t = clock()
+				for (int i = 0; i < 10000; i++)
+				{
+					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				}
 			break;
 			
 			case 5:
-				sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-				sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				t = clock()
+				for (int i = 0; i < 10000; i++)
+				{
+					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				}
 			break;
 			
 			case 6:
-				sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-				sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
-				cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				t = clock()
+				for (int i = 0; i < 10000; i++)
+				{
+					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				}
 			break;
 			
 			default:
 			break;
 		}
+		t = clock() - t;
+		total_time = ((float)t) / CLOCKS_PER_SEC;
+		std::cout << "Time taken to run: " << (total_time / 100) << " sec\n";
+		
 		bool *validatePrimeArray = new bool[bound + 1];
+		free(validatePrimateArray);
 		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
 		//validatePrimes(bound, );
