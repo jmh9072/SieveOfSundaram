@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 		{
 			case 0:
 			{
-				t = clock()
+				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					bool * eratosArray = new bool[bound + 1];
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 						
 			case 1:
 			{
-				t = clock()
+				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					bool * sundArray = new bool[bound + 1];
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 			break;
 			
 			case 3:
-				t = clock()
+				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 			break;
 			
 			case 4:
-				t = clock()
+				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
@@ -104,7 +104,7 @@ int main(int argc, char* argv[])
 			break;
 			
 			case 5:
-				t = clock()
+				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
@@ -115,7 +115,7 @@ int main(int argc, char* argv[])
 			break;
 			
 			case 6:
-				t = clock()
+				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
@@ -128,12 +128,12 @@ int main(int argc, char* argv[])
 			default:
 			break;
 		}
-		t = clock() - t;
+		t = clock(); - t;
 		total_time = ((float)t) / CLOCKS_PER_SEC;
 		std::cout << "Time taken to run: " << (total_time / 100) << " sec\n";
 		
 		bool *validatePrimeArray = new bool[bound + 1];
-		free(validatePrimateArray);
+		free(validatePrimeArray);
 		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
 		//validatePrimes(bound, );
