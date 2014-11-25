@@ -1,43 +1,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 
-///This function performs a serial Sieve of sundaram to find all primes
-void sundaramSieve(int bound, bool * primeArray)
-{
-	bool* findArray = new bool[bound + 1];
-	memset(findArray, 0, sizeof(bool) * (bound + 1)); 
-	memset(primeArray, 1, sizeof(bool) * (bound + 1));
-	int max = 0; 
-	int denom = 0;
-
-	for (int i = 1; i < bound; i++)
-	{
-		denom = (i << 1) + 1; 
-		max = (bound - i) / denom; 
-		for (int j = i; j <= max; j++)
-		{
-			findArray[i + j * denom] = true; 
-		}
-	}
-	for (int i = 1; i < ((bound - 1) / 2); i++)
-	{
-		if (!findArray[i])
-		{
-			primeArray[((i << 1) + 1)] = false; 
-		}
-	}
-	primeArray[2] = false; // Sundaram doesnt find two so ill find it for it
-
-	//code block below used for debuggin purposes
-	//for (int m = 2; m < bound; m++)
-	//{
-	//	if (!primeArray[m])
-	//	{
-	//		std::cout << m << ", ";
-	//	}
-	//}
-}
-
 ///all parallel implementations of this algorithim will require two functions or else delay a function significantly
 
 __global__
