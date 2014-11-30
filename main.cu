@@ -48,11 +48,6 @@ int main(int argc, char* argv[])
 			
 		cout << "What number should we find primes up to?";
 		cin >> bound;
-
-		checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound + 1)));
-		checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
-		checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
-		checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 		
 		switch (choice)
 		{
@@ -85,6 +80,10 @@ int main(int argc, char* argv[])
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
+					checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
@@ -128,15 +127,15 @@ int main(int argc, char* argv[])
 			default:
 			break;
 		}
-		t = clock(); - t;
+		t = clock() - t;
 		total_time = ((float)t) / CLOCKS_PER_SEC;
 		std::cout << "Time taken to run: " << (total_time / 100) << " sec\n";
 		
-		bool *validatePrimeArray = new bool[bound + 1];
-		free(validatePrimeArray);
-		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
-		
+		//bool *validatePrimeArray = new bool[bound + 1];
+		//delete [] validatePrimeArray;
 		//validatePrimes(bound, );
+		
+		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
 		checkCudaErrors(cudaFree(findArray));
 		checkCudaErrors(cudaFree(primeArray));
