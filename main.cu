@@ -83,8 +83,8 @@ int main(int argc, char* argv[])
 				{
 					checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound + 1)));
 					checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
-					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
