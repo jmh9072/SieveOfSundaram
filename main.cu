@@ -18,10 +18,6 @@ int main(int argc, char* argv[])
 	int bound = 0;
 	
 	bool *primeArray, *findArray;
-	const dim3 a_blockSize(1024, 1, 1);
-	const dim3 a_gridSize(bound / 1024, 1, 1);
-	const dim3 b_blockSize(32, 32, 1);
-	const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
 	
 	clock_t t;
 	float total_time;
@@ -43,11 +39,16 @@ int main(int argc, char* argv[])
 		if (choice == 7)
 			return 0;
 		
-		if (choice < 0 || choice > 4)
+		if (choice < 0 || choice > 7)
 			continue;
 			
 		cout << "What number should we find primes up to?";
 		cin >> bound;
+		
+		const dim3 a_blockSize(1024, 1, 1);
+		const dim3 a_gridSize(bound / 1024, 1, 1);
+		const dim3 b_blockSize(32, 32, 1);
+		const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
 		
 		switch (choice)
 		{
@@ -137,8 +138,11 @@ int main(int argc, char* argv[])
 		
 		//checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
-		checkCudaErrors(cudaFree(findArray));
-		checkCudaErrors(cudaFree(primeArray));
+		if (choice >= 3) //If we've run a GPU algorithm
+		{
+			checkCudaErrors(cudaFree(findArray));
+			checkCudaErrors(cudaFree(primeArray));
+		}
 	}
 	return 0;
 }
