@@ -81,8 +81,8 @@ int main(int argc, char* argv[])
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound + 1)));
-					checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
