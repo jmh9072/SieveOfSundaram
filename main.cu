@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 		if (choice < 0 || choice > 7)
 			continue;
 			
-		cout << "What number should we find primes up to?";
+		cout << "What number should we find primes up to?" << endl;
 		cin >> bound;
 		
 		const dim3 a_blockSize(1024, 1, 1);
@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
 		}
 		t = clock() - t;
 		total_time = ((float)t) / CLOCKS_PER_SEC;
-		std::cout << "Time taken to run: " << (total_time / 100) << " sec\n";
+		std::cout << "Time taken to run: " << (total_time / 100) << " sec\n" << endl;
 		
 		//bool *validatePrimeArray = new bool[bound + 1];
 		//delete [] validatePrimeArray;
