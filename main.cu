@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
+int main()
 {
 	int choice = -1;
 	int bound = 0;
@@ -50,6 +50,9 @@ int main(int argc, char* argv[])
 		const dim3 b_blockSize(32, 32, 1);
 		const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
 		
+		const dim3 t_blockSize(1,1,1);
+		const dim3 t_gridSize(1,1,1);
+		
 		switch (choice)
 		{
 			case 0:
@@ -85,9 +88,9 @@ int main(int argc, char* argv[])
 					checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
-					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
+					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-					sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
+					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
@@ -144,5 +147,4 @@ int main(int argc, char* argv[])
 			checkCudaErrors(cudaFree(primeArray));
 		}
 	}
-	return 0;
 }
