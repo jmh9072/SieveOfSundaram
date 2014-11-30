@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
 		//delete [] validatePrimeArray;
 		//validatePrimes(bound, );
 		
-		checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+		//checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
 		checkCudaErrors(cudaFree(findArray));
 		checkCudaErrors(cudaFree(primeArray));
