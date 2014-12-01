@@ -17,8 +17,8 @@ int main()
 	int choice = -1;
 	int bound = 0;
 	
-	int *primeArray, *findArray;
-	int *cpuArray;
+	bool *primeArray, *findArray;
+	bool *cpuArray;
 	
 	clock_t t;
 	float total_time;
