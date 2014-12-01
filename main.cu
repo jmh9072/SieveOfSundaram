@@ -48,7 +48,7 @@ int main()
 		
 		cout << "Creating reference prime array...";
 		int * goldArray = new int[bound + 1];
-		eratosthenesSieve(bound, goldArray);
+		sundPartOneSerial(bound, goldArray);
 		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
@@ -57,7 +57,7 @@ int main()
 		const dim3 b_blockSize(32, 16, 1);
 
 		const dim3 t_gridSize(bound,1,1);
-		const dim3 t_blockSize(512,1,1);
+		const dim3 t_blockSize(16,16,1);
 		
 		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
 		{
@@ -99,7 +99,7 @@ int main()
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
-					eratosPerElement<<<t_gridSize, t_blockSize>>>(bound, findArray);
+					sundPartOnePerElement<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
 					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
