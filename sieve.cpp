@@ -9,10 +9,10 @@
 using namespace std;
 
 /// This function performs a serial Sieve of Eratosthenes to find all prime number
-void eratosthenesSieve(int bound, bool * primeArray)
+void eratosthenesSieve(int bound, int * primeArray)
 {
 	int sqrtBound = (int)sqrt((double)bound);
-	memset(primeArray, 0, sizeof(bool) * (bound + 1));
+	memset(primeArray, 0, sizeof(int) * (bound + 1));
 	for (int m = 2; m <= sqrtBound; m++)
 	{
 		if (!primeArray[m])
@@ -35,11 +35,11 @@ void eratosthenesSieve(int bound, bool * primeArray)
 }
 
 ///This function performs a serial Sieve of sundaram to find all primes
-void sundaramSieve(int bound, bool * primeArray)
+void sundaramSieve(int bound, int * primeArray)
 {
-	bool* findArray = new bool[bound + 1];
-	memset(findArray, 0, sizeof(bool) * (bound + 1)); 
-	memset(primeArray, 1, sizeof(bool) * (bound + 1));
+	int* findArray = new int[bound + 1];
+	memset(findArray, 0, sizeof(int) * (bound + 1)); 
+	memset(primeArray, 1, sizeof(int) * (bound + 1));
 
 	for (int i = 1; i < bound; i++)
 	{
@@ -67,7 +67,7 @@ void sundaramSieve(int bound, bool * primeArray)
 	//}
 }
 
-void sundPartOneSerial(int bound, bool * findArray)
+void sundPartOneSerial(int bound, int * findArray)
 {
 	int max = 0; 
 	int denom = 0; 
@@ -82,7 +82,7 @@ void sundPartOneSerial(int bound, bool * findArray)
 	}
 }
 
-void sundPartTwoSerial(int bound, bool * findArray, bool * primeArray)
+void sundPartTwoSerial(int bound, int * findArray, int * primeArray)
 {
 	int max = (bound - 1) >> 1; 
 	for(int i = 1; i < max; i++)
@@ -96,7 +96,7 @@ void sundPartTwoSerial(int bound, bool * findArray, bool * primeArray)
 }
 
 ///This function compares two arrays to see if they match in the range of prime numbers
-void validatePrimes(int bound, bool* goldArray, bool* checkArray)
+void validatePrimes(int bound, int* goldArray, int* checkArray)
 {
 	for (int i = 0; i <= 20; i++)
 	{

@@ -17,8 +17,8 @@ int main()
 	int choice = -1;
 	int bound = 0;
 	
-	bool *primeArray, *findArray;
-	bool *cpuArray;
+	int *primeArray, *findArray;
+	int *cpuArray;
 	
 	clock_t t;
 	float total_time;
@@ -47,7 +47,7 @@ int main()
 		cin >> bound;
 		
 		cout << "Creating reference prime array...";
-		bool * goldArray = new bool[bound + 1];
+		int * goldArray = new int[bound + 1];
 		sundPartOneSerial(bound, goldArray);
 		cout << "done." << endl;
 		
@@ -61,9 +61,9 @@ int main()
 		
 		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
 		{
-			cout << "Allocating " << 2 * sizeof(bool) * (2 * bound + 2) / 1024.0 / 1024.0 << "MB of memory" << endl;
-			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
-			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
+			cout << "Allocating " << 2 * sizeof(int) * (2 * bound + 2) / 1024.0 / 1024.0 << "MB of memory" << endl;
+			checkCudaErrors(cudaMalloc(&primeArray, sizeof(int) * (2*bound + 2)));
+			checkCudaErrors(cudaMalloc(&findArray, sizeof(int) * (2*bound + 2)));
 		}
 
 		switch (choice)
@@ -73,7 +73,7 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					cpuArray = new bool[bound + 1];
+					cpuArray = new int[bound + 1];
 					eratosthenesSieve(bound, cpuArray);
 					break;
 				}
@@ -84,7 +84,7 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					cpuArray = new bool[bound + 1];
+					cpuArray = new int[bound + 1];
 					sundaramSieve(bound, cpuArray);
 					break;
 				}
@@ -97,8 +97,8 @@ int main()
 				t = clock();
 				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
@@ -148,8 +148,8 @@ int main()
 		
 		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
-			bool *validatePrimeArray = new bool[bound + 1];
-			checkCudaErrors(cudaMemcpy(validatePrimeArray, findArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+			int *validatePrimeArray = new int[bound + 1];
+			checkCudaErrors(cudaMemcpy(validatePrimeArray, findArray, sizeof(int) * (bound + 1), cudaMemcpyDeviceToHost));
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
 			validatePrimes(bound, goldArray, validatePrimeArray);
