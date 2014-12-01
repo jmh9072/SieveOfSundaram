@@ -164,7 +164,7 @@ int main()
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
-					eratosPerElement2D<<<d_gridSize, d_blockSize>>>(bound, primeArray);
+					eratosPerElement2D<<<b_gridSize, b_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
