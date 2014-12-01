@@ -28,7 +28,7 @@ int main()
 		cout << "Which algorithm would you like to run?" << endl;
 		cout << "0. Sieve of Eratosthenes (serial)" << endl;
 		cout << "1. Sieve of Sundaram (serial)" << endl;
-		cout << "2. Sieve of Sundaram (serial, optimized)" << endl;
+		//cout << "2. Sieve of Sundaram (serial, optimized)" << endl;
 		cout << "3. Sieve of Sundaram (GPU - PerRow, 1D)" << endl;
 		cout << "4. Sieve of Sundaram (GPU - PerRow, 2D)" << endl;
 		cout << "5. Sieve of Sundaram (GPU - PerElement, 1D)" << endl;
