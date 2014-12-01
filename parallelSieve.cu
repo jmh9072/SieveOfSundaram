@@ -14,7 +14,7 @@ void sundPartOnePerRow(int bound, int * findArray)
 	for(int j = idx; j <= max; j++)
 	{
 		if(idx + j * denom >= 2*bound+2)
-			findArray[idx + j * denom] = idx; 
+			findArray[idx] = idx; 
 	}
 }
 
