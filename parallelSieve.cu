@@ -134,7 +134,7 @@ void eratosPerElement(int bound, bool * primeArray)
 	}
 	for(int k = id * id; k <= bound; k+=id)
 	{
-		primeArray[k] = false; 
+		primeArray[k] = true; 
 	}
 }
 
@@ -159,7 +159,7 @@ void eratosParallelMult(int i, bool bound, bool * primeArray)
 		return;
 	}
 	
-	primeArray[bin] = false;
+	primeArray[bin] = true;
 }
 ///this should work because we dont care about collisions and all eratos does is find multiples, this will do some redundant calculationg but hopefully so fast it doesnt matter
 __global__
@@ -180,5 +180,5 @@ void eratosPerElement2D(int bound, bool * primeArray)
 	{
 		return; 
 	}
-	primeArray[bin] = false;
+	primeArray[bin] = true;
 }
