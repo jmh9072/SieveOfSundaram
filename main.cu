@@ -53,7 +53,7 @@ int main()
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
-		const dim3 b_gridSize(bound, 1, 1);
+		const dim3 b_gridSize(bound / 2, bound / 2, 1);
 		const dim3 b_blockSize(32, 16, 1);
 
 		const dim3 t_gridSize(bound,1,1);
@@ -125,7 +125,7 @@ int main()
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
-					sundPartOnePerElement<<<t_gridSize, t_blockSize>>>(bound, findArray);
+					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
 					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
