@@ -23,10 +23,6 @@ int main()
 	clock_t t;
 	float total_time;
 	
-	bool * goldArray = new bool[bound + 1];
-	sundaramSieve(bound, goldArray);
-	break;
-	
 	while (1)
 	{
 		cout << "Which algorithm would you like to run?" << endl;
@@ -49,6 +45,11 @@ int main()
 			
 		cout << "What number should we find primes up to?" << endl;
 		cin >> bound;
+		
+		cout << "Creating reference prime array...";
+		bool * goldArray = new bool[bound + 1];
+		sundaramSieve(bound, goldArray);
+		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(1024, 1, 1);
