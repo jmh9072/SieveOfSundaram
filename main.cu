@@ -48,7 +48,7 @@ int main()
 		
 		cout << "Creating reference prime array...";
 		bool * goldArray = new bool[bound + 1];
-		sundaramSieve(bound, goldArray);
+		eratosthenesSieve(bound, goldArray);
 		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
