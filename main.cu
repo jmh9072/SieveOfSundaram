@@ -53,9 +53,6 @@ int main()
 		sundaramSieve(bound, goldArray);
 		cout << "done." << endl;
 		
-		checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
-		checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
-		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
 		const dim3 b_gridSize(bound / 1024 / 2, bound / 1024 / 2, 1);
@@ -72,6 +69,8 @@ int main()
 			cout << "Allocating " << 2 * sizeof(bool) * (bound + 1) / 1024.0 / 1024.0 << "MB of memory" << endl;
 			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound +1)));
 			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
+			checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
+			checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 		}
 
 		switch (choice)
