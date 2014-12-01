@@ -55,7 +55,7 @@ int main()
 		
 		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
 		{
-			cout << "Allocating " << sizeof(bool) * (2 * bound + 2) / 1024.0 / 1024.0 << "MB of memory" << endl;
+			cout << "Allocating " << 2 * sizeof(bool) * (2 * bound + 2) / 1024.0 / 1024.0 << "MB of memory" << endl;
 			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
 			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
 		}
