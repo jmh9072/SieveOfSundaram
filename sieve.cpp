@@ -98,12 +98,13 @@ void sundPartTwoSerial(int bound, bool * findArray, bool * primeArray)
 ///This function compares two arrays to see if they match in the range of prime numbers
 void validatePrimes(int bound, bool* goldArray, bool* checkArray)
 {
-	for (int i = 2; i <= bound; i++)
+	for (int i = 0; i <= 20; i++)
 	{
-		if (i < 20)
-		{
-			cout << goldArray[i] << "\t" << checkArray[i] << endl;
-		}
+		cout << goldArray[i] << "\t" << checkArray[i] << endl;
+	}
+		
+	for (int i = 0; i <= bound; i++)
+	{
 		if (goldArray[i] != checkArray[i])
 		{
 			std::cout << "Difference at Position " << i << "\n";
