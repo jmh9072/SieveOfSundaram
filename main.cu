@@ -153,7 +153,7 @@ int main()
 		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
 			bool *validatePrimeArray = new bool[bound + 1];
-			checkCudaErrors(cudaMemcpy(validatePrimeArray, findArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+			checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
 			validatePrimes(bound, goldArray, validatePrimeArray);

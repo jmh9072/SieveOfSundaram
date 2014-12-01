@@ -70,7 +70,10 @@ __global__
 void sundPartTwoPerElementOneD(int bound, bool * findArray, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
-
+	if(idx < 2)
+	{
+		return; 
+	}
 	if(idx == 2) //let thread 0 handle setting 2 as prime 
 	{
 		primeArray[2] = false; 
@@ -86,7 +89,7 @@ void sundPartTwoPerElementOneD(int bound, bool * findArray, bool * primeArray)
 	if(!findArray[idx])
 	{
 		int bin = (idx << 1) + 1;
-		//primeArray[bin] = false; 
+		primeArray[bin] = false; 
 	}
 }
 
@@ -102,8 +105,6 @@ void sundPartTwoPerElementTwoD(int bound, bool * findArray, bool * primeArray)
 	}
 	if(id == 2) //let thread 0 handle setting 2 as prime 
 	{
-		primeArray[0] = true;
-		primeArray[1] = true;
 		primeArray[2] = false; 
 		return;
 	}
