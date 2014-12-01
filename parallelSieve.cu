@@ -13,7 +13,7 @@ void sundPartOnePerRow(int bound, int * findArray)
 	
 	for(int j = idx; j <= max; j++)
 	{
-			findArray[idx + j * denom] = idx+j*denom; 
+		findArray[idx + j * denom] = idx+j*denom; 
 	}
 }
 
