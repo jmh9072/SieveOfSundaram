@@ -56,6 +56,9 @@ int main()
 		const dim3 a_blockSize(512, 1, 1);
 		const dim3 b_gridSize(bound / 2, bound / 2, 1);
 		const dim3 b_blockSize(32, 16, 1);
+		
+		const dim3 c_gridSize(bound,1,1);
+		const dim3 c_blockSize(512);
 
 		const dim3 t_gridSize(bound,1,1);
 		const dim3 t_blockSize(32,16,1);
@@ -149,7 +152,7 @@ int main()
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (2*bound + 2)));
-					eratosPerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
+					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
