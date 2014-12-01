@@ -48,12 +48,12 @@ int main()
 		
 		cout << "Creating reference prime array...";
 		int * goldArray = new int[bound + 1];
-		sundPartOneSerial(bound, goldArray);
+		sundaramSieve(bound, goldArray);
 		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
-		const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
+		const dim3 b_gridSize(bound, 1, 1);
 		const dim3 b_blockSize(32, 16, 1);
 
 		const dim3 t_gridSize(bound,1,1);
@@ -101,8 +101,8 @@ int main()
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
-					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
 			
@@ -112,7 +112,7 @@ int main()
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
-					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
+					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
