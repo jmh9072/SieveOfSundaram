@@ -18,9 +18,14 @@ int main()
 	int bound = 0;
 	
 	bool *primeArray, *findArray;
+	bool *cpuArray;
 	
 	clock_t t;
 	float total_time;
+	
+	bool * goldArray = new bool[bound + 1];
+	sundaramSieve(bound, goldArray);
+	break;
 	
 	while (1)
 	{
@@ -67,8 +72,8 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					bool * eratosArray = new bool[bound + 1];
-					eratosthenesSieve(bound, eratosArray);
+					cpuArray = new bool[bound + 1];
+					eratosthenesSieve(bound, cpuArray);
 					break;
 				}
 			}
@@ -78,8 +83,8 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					bool * sundArray = new bool[bound + 1];
-					sundaramSieve(bound, sundArray);
+					cpuArray = new bool[bound + 1];
+					sundaramSieve(bound, cpuArray);
 					break;
 				}
 			}
@@ -91,7 +96,6 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					cout << i << endl;
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
@@ -141,16 +145,20 @@ int main()
 		total_time = ((float)t) / CLOCKS_PER_SEC;
 		cout << "Time taken to run: " << (total_time / 100) << " sec\n" << endl;
 		
-		//bool *validatePrimeArray = new bool[bound + 1];
-		//delete [] validatePrimeArray;
-		//validatePrimes(bound, );
-		
-		//checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
-		
-		if (choice >= 3) //If we've run a GPU algorithm, free the memory
+		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
+			bool *validatePrimeArray = new bool[bound + 1];
+			checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
+			validatePrimes(bound, goldArray, validatePrimeArray);
+			delete [] validatePrimeArray;
 		}
+		else
+		{
+			validatePrimes(bound, goldArray, cpuArray);
+		}
+		delete [] cpuArray;
+
 	}
 }
