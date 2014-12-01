@@ -99,7 +99,7 @@ int main()
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
-					sundPartOnePerElement<<<t_gridSize, t_blockSize>>>(bound, findArray);
+					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
 					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
@@ -110,6 +110,8 @@ int main()
 				t = clock();
 				//for (int i = 0; i < 10000; i++)
 				{
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
@@ -121,10 +123,12 @@ int main()
 				t = clock();
 				//for (int i = 0; i < 10000; i++)
 				{
-					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
+					sundPartOnePerElement<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
-					sundPartTwoPerElementOneD<<<a_gridSize, a_blockSize>>>(bound, findArray, primeArray);
-					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
+					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
 			
