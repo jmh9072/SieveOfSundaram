@@ -90,6 +90,7 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
+					cout << i << endl;
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
@@ -137,7 +138,7 @@ int main()
 		}
 		t = clock() - t;
 		total_time = ((float)t) / CLOCKS_PER_SEC;
-		std::cout << "Time taken to run: " << (total_time / 100) << " sec\n" << endl;
+		cout << "Time taken to run: " << (total_time / 100) << " sec\n" << endl;
 		
 		//bool *validatePrimeArray = new bool[bound + 1];
 		//delete [] validatePrimeArray;
