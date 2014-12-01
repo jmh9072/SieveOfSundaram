@@ -33,14 +33,15 @@ int main()
 		cout << "4. Sieve of Sundaram (parallel, GPU)" << endl;
 		cout << "5. Sieve of Sundaram (parallel, GPU)" << endl;
 		cout << "6. Sieve of Sundaram (parallel, GPU)" << endl;
-		cout << "7. Exit" << endl;
+		cout << "7. Eratos Per Element (GPU)" << endl;
+		cout << "9. Exit" << endl;
 		cin >> choice;
 		
 		//Process exit
-		if (choice == 7)
+		if (choice == 9)
 			return 0;
 		
-		if (choice < 0 || choice > 7)
+		if (choice < 0 || choice > 9)
 			continue;
 			
 		cout << "What number should we find primes up to?" << endl;
@@ -142,6 +143,18 @@ int main()
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
+			
+			case 7:
+				t = clock();
+				//for (int i = 0; i < 10000; i++)
+				{
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					eratosPerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+				}
+			break;
+			
+			
 			
 			default:
 			break;

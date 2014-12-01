@@ -132,7 +132,7 @@ void eratosPerElement(int bound, bool * primeArray)
 	{
 		return; 
 	}
-	for(int k = id * id; k <= bound; k++)
+	for(int k = id * id; k <= bound; k+=id)
 	{
 		primeArray[k] = true; 
 	}
