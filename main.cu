@@ -52,7 +52,7 @@ int main()
 		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
-		const dim3 a_blockSize(1024, 1, 1);
+		const dim3 a_blockSize(512, 1, 1);
 		const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
 		const dim3 b_blockSize(32, 16, 1);
 
@@ -95,7 +95,7 @@ int main()
 			
 			case 3:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
@@ -108,7 +108,7 @@ int main()
 			
 			case 4:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerRow<<<a_gridSize, a_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
@@ -119,7 +119,7 @@ int main()
 			
 			case 5:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
@@ -129,7 +129,7 @@ int main()
 			break;
 			
 			case 6:
-				t = clock();
+				//t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
