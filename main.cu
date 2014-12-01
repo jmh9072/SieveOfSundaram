@@ -129,8 +129,8 @@ int main()
 			break;
 			
 			case 6:
-				//t = clock();
-				for (int i = 0; i < 10000; i++)
+				t = clock();
+				//for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
@@ -149,7 +149,7 @@ int main()
 		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
 			bool *validatePrimeArray = new bool[bound + 1];
-			checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+			checkCudaErrors(cudaMemcpy(validatePrimeArray, findArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
 			validatePrimes(bound, goldArray, validatePrimeArray);
