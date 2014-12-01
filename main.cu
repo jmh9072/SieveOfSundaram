@@ -66,9 +66,9 @@ int main()
 		
 		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
 		{
-			cout << "Allocating " << 2 * sizeof(bool) * (2 * bound + 2) / 1024.0 / 1024.0 << "MB of memory" << endl;
-			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
-			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
+			cout << "Allocating " << 2 * sizeof(bool) * (bound + 1) / 1024.0 / 1024.0 << "MB of memory" << endl;
+			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (bound +1)));
+			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (bound + 1)));
 		}
 
 		switch (choice)
@@ -76,7 +76,7 @@ int main()
 			case 0:
 			{
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
 					cpuArray = new bool[bound + 1];
 					eratosthenesSieve(bound, cpuArray);
@@ -87,7 +87,7 @@ int main()
 			case 1:
 			{
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
 					cpuArray = new bool[bound + 1];
 					sundaramSieve(bound, cpuArray);
@@ -100,10 +100,10 @@ int main()
 			
 			case 3:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
@@ -113,10 +113,10 @@ int main()
 			
 			case 4:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementTwoD<<<b_gridSize, b_blockSize>>>(bound, findArray, primeArray);
@@ -126,20 +126,24 @@ int main()
 			
 			case 5:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					cout << "set memory" << endl;
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
+					cout << "part one" << endl;
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					cout << "part two" << endl;
 					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					cout << "done" << endl;
 				}
 			break;
 			
 			case 6:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
@@ -150,18 +154,18 @@ int main()
 			
 			case 7:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
 					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
 			case 8:
 				t = clock();
-				for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
 					eratosPerElement2D<<<b_gridSize, b_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
