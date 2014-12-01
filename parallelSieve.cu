@@ -8,6 +8,11 @@ void sundPartOnePerRow(int bound, int * findArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	
+	if(idx < 1)
+	{
+	return;
+	}
+
 	if (idx > bound)
 		return;
 	
