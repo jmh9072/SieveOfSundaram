@@ -95,11 +95,8 @@ void sundPartTwoPerElementTwoD(int bound, bool * findArray, bool * primeArray)
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	int idy = blockDim.y * blockIdx.y + threadIdx.y; 
 	int id = idx + idy;
-	if(id < 2)
-	{
-		return; 
-	}
-	if(idx == 0) //let thread 0 handle setting 2 as prime 
+
+	if(id == 0) //let thread 0 handle setting 2 as prime 
 	{
 		primeArray[2] = false; 
 		return;
