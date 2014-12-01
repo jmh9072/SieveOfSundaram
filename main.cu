@@ -100,7 +100,7 @@ int main()
 			
 			case 3:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
@@ -113,7 +113,7 @@ int main()
 			
 			case 4:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
@@ -126,7 +126,7 @@ int main()
 			
 			case 5:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
@@ -139,7 +139,7 @@ int main()
 			
 			case 6:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
@@ -150,7 +150,7 @@ int main()
 			
 			case 7:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (2*bound + 2)));
 					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, primeArray);
@@ -159,7 +159,7 @@ int main()
 			break;
 			case 8:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (2*bound + 2)));
 					eratosPerElement2D<<<b_gridSize, b_blockSize>>>(bound, primeArray);
