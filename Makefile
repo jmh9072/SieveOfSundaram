@@ -10,7 +10,7 @@ NVCC_OPTS=-O3 -arch=sm_20 -Xcompiler -Wall -Xcompiler -Wextra -m64
 
 GCC_OPTS=-O3 -Wall -Wextra -m64
 
-SieveOfSundaram: main.cu
+SieveOfSundaram: main.cu sieve.cpp parallelSieve.cu
 	$(NVCC) -I ${CUDA_INCLUDEPATH} -o SieveOfSundaram main.cu -L $(NVCC_OPTS)
 
 #sieve.o: sieve.cpp
