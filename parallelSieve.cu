@@ -11,7 +11,7 @@ void sundPartOnePerRow(int bound, bool * findArray)
 	{
 		return;
 	}
-	int denom = (idx << 1) + 1; 
+	int denom = (idx * 2) + 1; 
 	int max = (bound - idx) / denom; 
 	for(int j = idx; j <= max; j++)
 	{
