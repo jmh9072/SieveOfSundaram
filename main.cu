@@ -50,14 +50,14 @@ int main()
 		
 		cout << "Creating reference prime array...";
 		bool * goldArray = new bool[bound + 1];
-		//sundaramSieve(bound, goldArray);
-		sundPartOneSerial(bound, goldArray);
+		sundaramSieve(bound, goldArray);
+		//sundPartOneSerial(bound, goldArray);
 		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
 		int b_bound = (int)sqrt((double)(bound/1024)); 
-		const dim3 b_gridSize(b_bound + 1, b_bound + 1, 1);
+		const dim3 b_gridSize(b_bound, b_bound, 1);
 		const dim3 b_blockSize(32, 32, 1);
 		
 		const dim3 c_gridSize(bound / 16384,1,1);
@@ -157,7 +157,7 @@ int main()
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
-					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, primeArray);
+					eratosPerElement<<<b_gridSize, b_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
@@ -181,7 +181,7 @@ int main()
 		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
 			bool *validatePrimeArray = new bool[bound + 1];
-			checkCudaErrors(cudaMemcpy(validatePrimeArray, findArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+			checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
 			validatePrimes(bound, goldArray, validatePrimeArray);
