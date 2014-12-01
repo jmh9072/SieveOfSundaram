@@ -100,16 +100,7 @@ void validatePrimes(int bound, bool* goldArray, bool* checkArray)
 {
 	for (int i = 0; i <= 20; i++)
 	{
-		string s1, s2;
-		if (goldArray[i])
-			s1 = "compos.";
-		else
-			s1 = "prime";
-		if (checkArray[i])
-			s2 = "compos.";
-		else
-			s2 = "prime";
-		cout << i << ".\t" << s1 << "\t" << s2 << endl;
+		cout << i << ".\t" << goldArray[i] << "\t" << checkArray[i] << endl;
 	}
 		
 	for (int i = 0; i <= bound; i++)
