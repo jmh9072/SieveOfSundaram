@@ -1,5 +1,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
+#include <math.h>
 
 ///all parallel implementations of this algorithim will require two functions or else delay a function significantly
 
