@@ -57,7 +57,7 @@ int main()
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
 		int b_bound = (int)sqrt((double)(bound/1024)); 
-		const dim3 b_gridSize(b_bound, b_bound, 1);
+		const dim3 b_gridSize(bound/32, bound/32, 1);
 		const dim3 b_blockSize(32, 32, 1);
 		
 		const dim3 c_gridSize(bound / 16384,1,1);
@@ -135,8 +135,8 @@ int main()
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					cout << "part two" << endl;
-					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
-					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
+					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					cout << "done" << endl;
 				}
 			break;
@@ -157,7 +157,7 @@ int main()
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
-					eratosPerElement<<<b_gridSize, b_blockSize>>>(bound, primeArray);
+					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
