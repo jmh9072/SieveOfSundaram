@@ -148,7 +148,7 @@ int main()
 				t = clock();
 				//for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (2*bound + 2)));
 					eratosPerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
