@@ -153,7 +153,7 @@ int main()
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
-					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, findArray);
+					eratosPerElement<<<c_gridSize, c_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
@@ -162,7 +162,7 @@ int main()
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
-					eratosPerElement2D<<<b_gridSize, b_blockSize>>>(bound, findArray);
+					eratosPerElement2D<<<b_gridSize, b_blockSize>>>(bound, primeArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
