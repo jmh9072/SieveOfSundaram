@@ -29,12 +29,12 @@ int main()
 		cout << "0. Sieve of Eratosthenes (serial)" << endl;
 		cout << "1. Sieve of Sundaram (serial)" << endl;
 		cout << "2. Sieve of Sundaram (serial, optimized)" << endl;
-		cout << "3. Sieve of Sundaram (parallel, GPU)" << endl;
-		cout << "4. Sieve of Sundaram (parallel, GPU)" << endl;
-		cout << "5. Sieve of Sundaram (parallel, GPU)" << endl;
-		cout << "6. Sieve of Sundaram (parallel, GPU)" << endl;
-		cout << "7. Eratos Per Element (GPU)" << endl;
-		cout << "8. Eratos Per Element 2D (GPU)" << endl;
+		cout << "3. Sieve of Sundaram (GPU - PerRow, 1D)" << endl;
+		cout << "4. Sieve of Sundaram (GPU - PerRow, 2D)" << endl;
+		cout << "5. Sieve of Sundaram (GPU - PerElement, 1D)" << endl;
+		cout << "6. Sieve of Sundaram (GPU - PerRow, 2D)" << endl;
+		cout << "7. Sieve of Eratosthenes (GPU - Per Element 1D)" << endl;
+		cout << "8. Sieve of Eratosthenes (GPU - Per Element 2D)" << endl;
 		cout << "9. Exit" << endl;
 		cin >> choice;
 		
@@ -55,7 +55,7 @@ int main()
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
-		const dim3 b_gridSize(bound / (32) / 2, bound / (32) / 2, 1);
+		const dim3 b_gridSize(bound / (32*32) / 2, bound / (32*32) / 2, 1);
 		const dim3 b_blockSize(32, 32, 1);
 		
 		const dim3 c_gridSize(bound,1,1);
