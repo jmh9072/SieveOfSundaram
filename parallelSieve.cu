@@ -72,16 +72,16 @@ void sundPartTwoPerElementOneD(int bound, bool * findArray, bool * primeArray)
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	if(idx < 1)
 	{
-		primeArray[0] = true;
 		return; 
 	}
 	if (idx < 2)
 	{
-		primeArray[1] = true;
 		return;
 	}
 	if(idx == 2) //let thread 0 handle setting 2 as prime 
 	{
+		primeArray[0] = true;
+		primeArray[1] = true;
 		primeArray[2] = false; 
 		return;
 	}
