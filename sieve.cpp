@@ -109,7 +109,7 @@ void validatePrimes(int bound, bool* goldArray, bool* checkArray)
 			s2 = "compos.";
 		else
 			s2 = "prime";
-		cout << i << ".\t" << goldArray[i] << "\t" << checkArray[i] << endl;
+		cout << i << ".\t" << s1 << "\t" << s2 << endl;
 	}
 		
 	for (int i = 0; i <= bound; i++)
