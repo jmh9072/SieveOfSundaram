@@ -55,8 +55,8 @@ int main()
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
-		const dim3 b_gridSize(bound / (1024*1024) / 2, bound / (1024*1024) / 2, 1);
-		const dim3 b_blockSize(1024, 1024, 1);
+		const dim3 b_gridSize(bound / (32*32) / 2, bound / (32*32) / 2, 1);
+		const dim3 b_blockSize(32, 32, 1);
 		
 		const dim3 c_gridSize(bound,1,1);
 		const dim3 c_blockSize(512, 1, 1);
