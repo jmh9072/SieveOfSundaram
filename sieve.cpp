@@ -12,7 +12,7 @@ using namespace std;
 void eratosthenesSieve(int bound, int * primeArray)
 {
 	int sqrtBound = (int)sqrt((double)bound);
-	memset(primeArray, 0, sizeof(int) * (bound + 1));
+	memset(primeArray, 0, sizeof(bool) * (bound + 1));
 	for (int m = 2; m <= sqrtBound; m++)
 	{
 		if (!primeArray[m])
