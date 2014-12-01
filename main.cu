@@ -34,7 +34,7 @@ int main()
 		cout << "5. Sieve of Sundaram (parallel, GPU)" << endl;
 		cout << "6. Sieve of Sundaram (parallel, GPU)" << endl;
 		cout << "7. Eratos Per Element (GPU)" << endl;
-		cout << "7. Eratos Per Element 2D (GPU)" << endl;
+		cout << "8. Eratos Per Element 2D (GPU)" << endl;
 		cout << "9. Exit" << endl;
 		cin >> choice;
 		
