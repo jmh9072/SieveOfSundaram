@@ -4,7 +4,7 @@
 ///all parallel implementations of this algorithim will require two functions or else delay a function significantly
 
 __global__
-void sundPartOnePerRow(int bound, int * findArray)
+void sundPartOnePerRow(int bound, bool * findArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	
@@ -26,7 +26,7 @@ void sundPartOnePerRow(int bound, int * findArray)
 }
 
 __global__
-void sundPartOnePerElement(int bound, int * findArray)
+void sundPartOnePerElement(int bound, bool * findArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; //x is j
 	
@@ -67,7 +67,7 @@ void sundPartOnePerElement(int bound, int * findArray)
 }
 
 __global__
-void sundPartTwoPerElementOneD(int bound, int * findArray, int * primeArray)
+void sundPartTwoPerElementOneD(int bound, bool * findArray, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	if(idx < 2)
@@ -94,7 +94,7 @@ void sundPartTwoPerElementOneD(int bound, int * findArray, int * primeArray)
 }
 
 __global__
-void sundPartTwoPerElementTwoD(int bound, int * findArray, int * primeArray)
+void sundPartTwoPerElementTwoD(int bound, bool * findArray, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	int idy = blockDim.y * blockIdx.y + threadIdx.y; 
@@ -123,7 +123,7 @@ void sundPartTwoPerElementTwoD(int bound, int * findArray, int * primeArray)
 }
 
 __global__
-void eratosPerElement(int bound, int * primeArray)
+void eratosPerElement(int bound, bool * primeArray)
 {
 	int id = blockDim.x * blockIdx.x + threadIdx.x;
 	int sqrtBound = (int)sqrt((double)bound); 
@@ -152,7 +152,7 @@ void eratosPerElement(int bound, int * primeArray)
 ///		}
 ///}
 __global__
-void eratosParallelMult(int i, int bound, int * primeArray)
+void eratosParallelMult(int i, bool bound, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	
@@ -167,7 +167,7 @@ void eratosParallelMult(int i, int bound, int * primeArray)
 }
 ///this should work because we dont care about collisions and all eratos does is find multiples, this will do some redundant calculationg but hopefully so fast it doesnt matter
 __global__
-void eratosPerElement2D(int bound, int * primeArray)
+void eratosPerElement2D(int bound, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	if(idx < 2)
