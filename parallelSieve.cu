@@ -1,6 +1,5 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
-#include <math.h>
 
 ///all parallel implementations of this algorithim will require two functions or else delay a function significantly
 
@@ -129,10 +128,10 @@ void eratosPerElement(int bound, bool * primeArray)
 	{
 		return; 
 	}
-	if(id > sqrtBound)
+	/*if(id > sqrtBound)
 	{
 		return; 
-	}
+	}*/
 	for(int k = id * id; k <= bound; k+=id)
 	{
 		primeArray[k] = true; 
