@@ -187,6 +187,6 @@ int main()
 			validatePrimes(bound, goldArray, cpuArray);
 		}
 		delete [] cpuArray;
-
+		return 0;
 	}
 }
