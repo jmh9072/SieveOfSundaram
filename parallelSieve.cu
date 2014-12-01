@@ -86,7 +86,7 @@ void sundPartTwoPerElementOneD(int bound, bool * findArray, bool * primeArray)
 	if(!findArray[idx])
 	{
 		int bin = (idx << 1) + 1;
-		primeArray[bin] = false; 
+		//primeArray[bin] = false; 
 	}
 }
 
