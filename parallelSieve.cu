@@ -7,12 +7,13 @@ __global__
 void sundPartOnePerRow(int bound, int * findArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
-	if(idx >= bound)
+
+	int denom = (idx * 2) + 1; 
+	int max = (bound - idx) / denom; 
+	if(idx + j * denom >= 2*bound+2)
 	{
 		return;
 	}
-	int denom = (idx * 2) + 1; 
-	int max = (bound - idx) / denom; 
 	for(int j = idx; j <= max; j++)
 	{
 		findArray[idx + j * denom] = idx; 
