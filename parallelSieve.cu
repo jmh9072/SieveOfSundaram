@@ -169,6 +169,7 @@ void eratosParallelMult(int i, bool bound, bool * primeArray)
 __global__
 void eratosPerElement2D(int bound, bool * primeArray)
 {
+	int sqrtBound = (int)sqrt((double)bound); 
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	if (idx == 0)
 	{
@@ -185,7 +186,7 @@ void eratosPerElement2D(int bound, bool * primeArray)
 		return; 
 	}
 	int bin = idx * idy; 
-	if(bin > bound)
+	if(bin > sqrtBound)
 	{
 		return; 
 	}
