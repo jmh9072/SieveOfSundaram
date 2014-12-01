@@ -186,7 +186,7 @@ void eratosPerElement2D(int bound, bool * primeArray)
 		return; 
 	}
 	int bin = idx * idy; 
-	if(bin > sqrtBound)
+	if(bin > bound)
 	{
 		return; 
 	}
