@@ -128,10 +128,10 @@ void eratosPerElement(int bound, bool * primeArray)
 	{
 		return; 
 	}
-	/*if(id > sqrtBound)
+	if(id > sqrtBound)
 	{
 		return; 
-	}*/
+	}
 	for(int k = id * id; k <= bound; k+=id)
 	{
 		primeArray[k] = true; 
