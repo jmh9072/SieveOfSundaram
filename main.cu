@@ -55,6 +55,7 @@ int main()
 		
 		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
 		{
+			cout << "Allocating " << sizeof(bool) * (2 * bound + 2) / 1024.0 / 1024.0 << "MB of memory" << endl;
 			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
 			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
 		}
@@ -91,8 +92,8 @@ int main()
 				for (int i = 0; i < 10000; i++)
 				{
 					cout << i << endl;
-					//checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
-					//checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
+					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
