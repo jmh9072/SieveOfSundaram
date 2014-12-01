@@ -15,9 +15,8 @@ void sundPartOnePerRow(int bound, bool * findArray)
 	int max = (bound - idx) / denom; 
 	for(int j = idx; j <= max; j++)
 	{
-		findArray[idx + j * denom] = true; 
+		//findArray[idx + j * denom] = true; 
 	}
-	findArray[0] = false;
 }
 
 __global__
