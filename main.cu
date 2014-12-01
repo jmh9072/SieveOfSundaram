@@ -56,7 +56,7 @@ int main()
 		const dim3 b_gridSize(bound / 1024 / 2, 1, 1);
 		const dim3 b_blockSize(32, 16, 1);
 
-		const dim3 t_gridSize(bound / 1024,1,1);
+		const dim3 t_gridSize(1,1,1);
 		const dim3 t_blockSize(512,1,1);
 		
 		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
