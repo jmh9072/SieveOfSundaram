@@ -91,8 +91,8 @@ int main()
 				for (int i = 0; i < 10000; i++)
 				{
 					cout << i << endl;
-					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
-					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
+					//checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
+					//checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
