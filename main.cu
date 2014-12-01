@@ -53,10 +53,9 @@ int main()
 		sundaramSieve(bound, goldArray);
 		cout << "done." << endl;
 		
-		cout << (int)(sqrt(bound)/32) << endl;
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
-		const dim3 b_gridSize((int)(sqrt(bound)/32), (int)(sqrt(bound)/32), 1);
+		const dim3 b_gridSize(98, 98, 1);
 		const dim3 b_blockSize(32, 32, 1);
 		
 		const dim3 c_gridSize(bound / 16384,1,1);
