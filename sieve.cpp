@@ -100,6 +100,10 @@ void validatePrimes(int bound, bool* goldArray, bool* checkArray)
 {
 	for (int i = 2; i <= bound; i++)
 	{
+		if (i < 20)
+		{
+			cout << goldArray[i] << "\t" << checkArray[i] << endl;
+		}
 		if (goldArray[i] != checkArray[i])
 		{
 			std::cout << "Difference at Position " << i << "\n";
