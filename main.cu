@@ -99,7 +99,7 @@ int main()
 				{
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(int) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(int) * (2*bound + 2)));
-					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
+					eratosPerElement<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
 					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
