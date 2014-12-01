@@ -50,7 +50,8 @@ int main()
 		
 		cout << "Creating reference prime array...";
 		bool * goldArray = new bool[bound + 1];
-		sundaramSieve(bound, goldArray);
+		//sundaramSieve(bound, goldArray);
+		sundPartOneSerial(bound, goldArray);
 		cout << "done." << endl;
 		
 		const dim3 a_gridSize(bound / 1024, 1, 1);
@@ -134,8 +135,8 @@ int main()
 					sundPartOnePerElement<<<b_gridSize, b_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					cout << "part two" << endl;
-					sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
-					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+					//sundPartTwoPerElementOneD<<<t_gridSize, t_blockSize>>>(bound, findArray, primeArray);
+					//cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 					cout << "done" << endl;
 				}
 			break;
@@ -180,7 +181,7 @@ int main()
 		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
 			bool *validatePrimeArray = new bool[bound + 1];
-			checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+			checkCudaErrors(cudaMemcpy(validatePrimeArray, findArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
 			validatePrimes(bound, goldArray, validatePrimeArray);
