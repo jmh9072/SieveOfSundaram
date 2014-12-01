@@ -9,7 +9,7 @@
 using namespace std;
 
 /// This function performs a serial Sieve of Eratosthenes to find all prime number
-void eratosthenesSieve(int bound, int * primeArray)
+void eratosthenesSieve(int bound, bool * primeArray)
 {
 	int sqrtBound = (int)sqrt((double)bound);
 	memset(primeArray, 0, sizeof(bool) * (bound + 1));
