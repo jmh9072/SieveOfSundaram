@@ -52,6 +52,12 @@ int main()
 
 		const dim3 t_gridSize(bound / 1024,1,1);
 		const dim3 t_blockSize(16,16,1);
+		
+		if (choice >= 3) //If we've run a GPU algorithm, allocate some memory
+		{
+			checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
+			checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
+		}
 
 		switch (choice)
 		{
@@ -84,8 +90,6 @@ int main()
 				t = clock();
 				for (int i = 0; i < 10000; i++)
 				{
-					checkCudaErrors(cudaMalloc(&primeArray, sizeof(bool) * (2*bound + 2)));
-					checkCudaErrors(cudaMalloc(&findArray, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (2*bound + 2)));
 					checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (2*bound + 2)));
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
@@ -141,7 +145,7 @@ int main()
 		
 		//checkCudaErrors(cudaMemcpy(validatePrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
 		
-		if (choice >= 3) //If we've run a GPU algorithm
+		if (choice >= 3) //If we've run a GPU algorithm, free the memory
 		{
 			checkCudaErrors(cudaFree(findArray));
 			checkCudaErrors(cudaFree(primeArray));
