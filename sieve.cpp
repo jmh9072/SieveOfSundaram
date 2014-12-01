@@ -35,11 +35,11 @@ void eratosthenesSieve(int bound, int * primeArray)
 }
 
 ///This function performs a serial Sieve of sundaram to find all primes
-void sundaramSieve(int bound, int * primeArray)
+void sundaramSieve(int bound, bool * primeArray)
 {
-	int* findArray = new int[bound + 1];
-	memset(findArray, 0, sizeof(int) * (bound + 1)); 
-	memset(primeArray, 1, sizeof(int) * (bound + 1));
+	bool* findArray = new bool[bound + 1];
+	memset(findArray, 0, sizeof(bool) * (bound + 1)); 
+	memset(primeArray, 1, sizeof(bool) * (bound + 1));
 
 	for (int i = 1; i < bound; i++)
 	{
