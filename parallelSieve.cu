@@ -17,6 +17,7 @@ void sundPartOnePerRow(int bound, bool * findArray)
 	{
 		findArray[idx + j * denom] = true; 
 	}
+	findArray[0] = false;
 }
 
 __global__
