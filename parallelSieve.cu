@@ -123,7 +123,11 @@ void eratosPerElement(int bound, bool * primeArray)
 {
 	int id = blockDim.x * blockIdx.x + threadIdx.x;
 	int sqrtBound = (int)sqrt((double)bound); 
-	
+	if (id == 0)
+	{
+		primeArray[0] = true;
+		primeArray[1] = true;
+	}
 	if(id < 2)
 	{
 		return; 
@@ -166,6 +170,11 @@ __global__
 void eratosPerElement2D(int bound, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
+	if (idx == 0)
+	{
+		primeArray[0] = true;
+		primeArray[1] = true;
+	}
 	if(idx < 2)
 	{
 		return; 

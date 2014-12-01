@@ -13,6 +13,8 @@ void eratosthenesSieve(int bound, bool * primeArray)
 {
 	int sqrtBound = (int)sqrt((double)bound);
 	memset(primeArray, 0, sizeof(bool) * (bound + 1));
+	primeArray[0] = true;
+	primeArray[1] = true;
 	for (int m = 2; m <= sqrtBound; m++)
 	{
 		if (!primeArray[m])
