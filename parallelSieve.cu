@@ -33,14 +33,14 @@ void sundPartOnePerElement(int bound, bool * findArray)
 	if(idx == 0) //j >= 1 
 	{
 		return;
-	}
+	} 
 	
 	if(idx >= bound) //j < bound 
 	{
 		return; 
 	}
 	
-	int idy = blockDim.y * blockIdx.y + threadIdx.y; //y is i
+	int idy = blockDim.x * blockIdx.x + threadIdx.y; //y is i
 	
 	if(idy == 0) //i >= 1
 	{

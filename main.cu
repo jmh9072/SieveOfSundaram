@@ -57,7 +57,7 @@ int main()
 		const dim3 a_gridSize(bound / 1024, 1, 1);
 		const dim3 a_blockSize(512, 1, 1);
 		int b_bound = (int)sqrt((double)(bound/1024)); 
-		const dim3 b_gridSize(100, 100, 1);
+		const dim3 b_gridSize(bound/1024, 1, 1);
 		const dim3 b_blockSize(32, 32, 1);
 		
 		const dim3 c_gridSize(bound / 16384,1,1);
@@ -107,7 +107,7 @@ int main()
 			
 			case 3:
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				//for (int i = 0; i < 10000; i++) 
 				{
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
