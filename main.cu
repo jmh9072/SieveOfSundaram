@@ -40,7 +40,7 @@ int main()
 		cin >> choice;
 		
 		//Process exit
-		if (choice == 9)
+		if (choice == 10)
 			return 0;
 		
 		if (choice < 0 || choice > 9)
