@@ -84,7 +84,7 @@ int main()
 			case 0:
 			{
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					cpuArray = new bool[bound + 1];
 					eratosthenesSieve(bound, cpuArray);
@@ -192,7 +192,7 @@ int main()
 		}
 		t = clock() - t;
 		total_time = ((float)t) / CLOCKS_PER_SEC;
-		cout << "Time taken to run: " << (total_time / 100) << " sec\n" << endl;
+		cout << "Time taken to run: " << (total_time / 100 / 10000) << " sec\n" << endl;
 		
 		if (choice >= 3) //If we've run a GPU algorithm, copy then free the memory
 		{
