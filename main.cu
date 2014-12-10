@@ -180,7 +180,7 @@ int main()
 					{
 						if(!primeArray[j])
 						{
-							eratorParallelMult<<<((bound / j)/ 1024), 1024>>>(j, bound primeArray); 
+							eratosParallelMult<<<((bound / j)/ 1024), 1024>>>(j, bound primeArray); 
 							cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError()); 
 						}
 					}
