@@ -35,7 +35,8 @@ int main()
 		cout << "6. Sieve of Sundaram (GPU - PerRow, 2D)" << endl;
 		cout << "7. Sieve of Eratosthenes (GPU - Per Element 1D)" << endl;
 		cout << "8. Sieve of Eratosthenes (GPU - Per Element 2D)" << endl;
-		cout << "9. Exit" << endl;
+		cout << "9. Sieve of Eratosthenes (GPU - Per Element 1D loop launch)" << endl;
+		cout << "10. Exit" << endl;
 		cin >> choice;
 		
 		//Process exit
@@ -170,7 +171,21 @@ int main()
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
 				}
 			break;
-			
+			case 9:
+				t = clock();
+				//for (int i = 0; i < 10000; i++)
+				{
+					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
+					for( int j = 2; j < (bound /2); j++)
+					{
+						if(!primeArray[i])
+						{
+							eratorParallelMult<<<((bound / j)/ 1024), 1024>>>(i, bound primeArray); 
+							cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError()); 
+						}
+					}
+				}
+			break;
 			default:
 			break;
 		}
