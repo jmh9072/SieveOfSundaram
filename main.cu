@@ -61,7 +61,7 @@ int main()
 		const dim3 b_gridSize(b_bound/32, b_bound/32, 1);
 		const dim3 b_blockSize(32, 32, 1);
 		
-		const dim3 c_gridSize(bound / 16384*8,1,1);
+		const dim3 c_gridSize(bound / 16384*8+1,1,1);
 		const dim3 c_blockSize(1024, 1, 1);
 
 		const dim3 d_gridSize(1+bound / (1024*1024) / 2, 1+bound / (1024*1024) / 2,1);
