@@ -95,7 +95,7 @@ int main()
 			case 1:
 			{
 				t = clock();
-				//for (int i = 0; i < 10000; i++)
+				for (int i = 0; i < 10000; i++)
 				{
 					cpuArray = new bool[bound + 1];
 					sundaramSieve(bound, cpuArray);
