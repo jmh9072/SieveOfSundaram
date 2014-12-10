@@ -78,7 +78,7 @@ int main()
 			checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
 			checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 		}
-		bool check = false; 
+		bool *check; 
 		switch (choice)
 		{
 			case 0:
