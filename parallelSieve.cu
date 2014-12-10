@@ -35,10 +35,10 @@ void sundPartOnePerElement(int bound, bool * findArray)
 		return;
 	} 
 	
-	if(idx >= bound) //j < bound 
+	/*if(idx >= bound) //j < bound 
 	{
 		return; 
-	}
+	}*/
 	
 	uint idy = (blockIdx.y * blockDim.y) + threadIdx.y; //y is i
 	
@@ -46,14 +46,14 @@ void sundPartOnePerElement(int bound, bool * findArray)
 	{
 		return;
 	}
-	if(idy >= bound) // i < bound
+	/*if(idy >= bound) // i < bound
 	{
 		return; 
 	}
 	if(idy > idx) //i <= j
 	{
 		return;
-	}
+	}*/
 	
 	uint bin = idy + idx + ((idy * idx) << 1); //form i + j + 2ij might be better to do parts of this function individually
 	
