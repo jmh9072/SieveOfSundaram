@@ -179,7 +179,7 @@ int main()
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
 					for( int j = 2; j < (bound /2); j++)
 					{
-						checkCudaErrors(cudaMemcpy(check, primeArray[j], sizeof(bool), cudaMemcpyDeviceToHost)); 
+						checkCudaErrors(cudaMemcpy(&check, primeArray+j, sizeof(bool), cudaMemcpyDeviceToHost)); 
 						if(!check)
 						{
 							eratosParallelMult<<<c_gridSize, c_blockSize>>>(j, bound, primeArray); 
