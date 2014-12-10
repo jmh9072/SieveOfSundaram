@@ -108,7 +108,7 @@ int main()
 			
 			case 3:
 				t = clock();
-				//for (int i = 0; i < 10000; i++) 
+				for (int i = 0; i < 10000; i++) 
 				{
 					sundPartOnePerRow<<<t_gridSize, t_blockSize>>>(bound, findArray);
 					cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
