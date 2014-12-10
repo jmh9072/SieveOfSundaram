@@ -173,14 +173,16 @@ int main()
 			break;
 			case 9:
 				t = clock();
+				bool check = false; 
 				//for (int i = 0; i < 10000; i++)
 				{
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
 					for( int j = 2; j < (bound /2); j++)
 					{
-						if(!primeArray[j])
+						checkCudaErrors(cudaMemcpy(check, primeArray[j], sizeof(bool), cudaMemcpyDeviceToHost)); 
+						if(!check)
 						{
-							eratosParallelMult<<<(bound / 1024), 1024>>>(j, bound, primeArray); 
+							eratosParallelMult<<<c_gridSize, c_blockSize>>>(j, bound, primeArray); 
 							cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError()); 
 						}
 					}
