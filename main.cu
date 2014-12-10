@@ -78,7 +78,7 @@ int main()
 			checkCudaErrors(cudaMemset(findArray, 0, sizeof(bool) * (bound + 1)));
 			checkCudaErrors(cudaMemset(primeArray, 1, sizeof(bool) * (bound + 1)));
 		}
-		bool *check; 
+		bool *loopPrimeArray = new bool[bound + 1]; 
 		switch (choice)
 		{
 			case 0:
@@ -178,8 +178,8 @@ int main()
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
 					for( int j = 2; j < (bound /2); j++)
 					{
-						checkCudaErrors(cudaMemcpy(&check, primeArray+j, sizeof(bool), cudaMemcpyDeviceToHost)); 
-						if(!check)
+						checkCudaErrors(cudaMemcpy(loopPrimeArray, primeArray, sizeof(bool) * (bound + 1), cudaMemcpyDeviceToHost));
+						if(!loopPrimeArray[j])
 						{
 							eratosParallelMult<<<c_gridSize, c_blockSize>>>(j, bound, primeArray); 
 							cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError()); 
