@@ -160,6 +160,9 @@ void eratosParallelMult(int i, int bound, bool * primeArray)
 		return; 
 	}
 	
+	if (idx == 1)
+		return;
+	
 	uint bin = i * idx; 
 	
 	if(bin > bound)
