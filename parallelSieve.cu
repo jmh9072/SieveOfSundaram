@@ -28,7 +28,7 @@ void sundPartOnePerRow(int bound, bool * findArray)
 __global__
 void sundPartOnePerElement(int bound, bool * findArray)
 {
-	int idx = 1024 * blockIdx.x + threadIdx.x; //x is j
+	int idx = 16 * blockIdx.x + threadIdx.x; //x is j
 	
 	if(idx == 0) //j >= 1 
 	{
@@ -40,7 +40,7 @@ void sundPartOnePerElement(int bound, bool * findArray)
 		return; 
 	}
 	
-	int idy = 1024 * blockIdx.y + threadIdx.y; //y is i
+	int idy = 16 * blockIdx.y + threadIdx.y; //y is i
 	
 	if(idy == 0) //i >= 1
 	{
