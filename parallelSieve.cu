@@ -157,6 +157,7 @@ void eratosParallelMult(int i, bool bound, bool * primeArray)
 	{
 		primeArray[0] = true;
 		primeArray[1] = true;
+		return; 
 	}
 	
 	int bin = i * idx; 
