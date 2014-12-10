@@ -43,7 +43,7 @@ int main()
 		if (choice == 10)
 			return 0;
 		
-		if (choice < 0 || choice > 9)
+		if (choice < 0 || choice > 10)
 			continue;
 			
 		cout << "What number should we find primes up to?" << endl;
@@ -180,7 +180,7 @@ int main()
 					{
 						if(!primeArray[j])
 						{
-							eratosParallelMult<<<((bound / j)/ 1024), 1024>>>(j, bound, primeArray); 
+							eratosParallelMult<<<(bound / 1024), 1024>>>(j, bound, primeArray); 
 							cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError()); 
 						}
 					}

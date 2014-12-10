@@ -153,6 +153,12 @@ void eratosParallelMult(int i, bool bound, bool * primeArray)
 {
 	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	
+	if(idx == 0)
+	{
+		primeArray[0] = true;
+		primeArray[1] = true;
+	}
+	
 	int bin = i * idx; 
 	
 	if(bin > bound)
