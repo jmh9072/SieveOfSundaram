@@ -55,7 +55,9 @@ void sundPartOnePerElement(int bound, bool * findArray)
 		return;
 	}
 	
-	uint bin = idy + idx + ((idy * idx) << 1); //form i + j + 2ij might be better to do parts of this function individually
+	uint denom = (idy << 1) + 1;
+	
+	uint bin = idy + idx * denom; //idy + idx + ((idy * idx) << 1); //form i + j + 2ij might be better to do parts of this function individually
 	
 	if( bin > bound) // i + j + 2ij <= bound
 	{
