@@ -178,9 +178,9 @@ int main()
 					checkCudaErrors(cudaMemset(primeArray, 0, sizeof(bool) * (bound + 1)));
 					for( int j = 2; j < (bound /2); j++)
 					{
-						if(!primeArray[i])
+						if(!primeArray[j])
 						{
-							eratorParallelMult<<<((bound / j)/ 1024), 1024>>>(i, bound primeArray); 
+							eratorParallelMult<<<((bound / j)/ 1024), 1024>>>(j, bound primeArray); 
 							cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError()); 
 						}
 					}
