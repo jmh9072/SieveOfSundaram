@@ -149,9 +149,9 @@ void eratosPerElement(int bound, bool * primeArray)
 ///		}
 ///}
 __global__
-void eratosParallelMult(int i, bool bound, bool * primeArray)
+void eratosParallelMult(int i, int bound, bool * primeArray)
 {
-	int idx = blockDim.x * blockIdx.x + threadIdx.x; 
+	uint idx = blockDim.x * blockIdx.x + threadIdx.x; 
 	
 	if(idx == 0)
 	{
@@ -160,7 +160,7 @@ void eratosParallelMult(int i, bool bound, bool * primeArray)
 		return; 
 	}
 	
-	int bin = i * idx; 
+	uint bin = i * idx; 
 	
 	if(bin > bound)
 	{
